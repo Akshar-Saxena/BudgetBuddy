@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DotLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 export default function SignUpPage() {
     const [userData, setUserData] = useState({
@@ -40,14 +41,16 @@ export default function SignUpPage() {
         } else if (userData.password == "") {
             showError("Enter a password");
         } else {
+            const unique = uuidv4();
             setIsSaving(true);
             await addDoc(collection(db, "users"), {
+                id: unique,
                 username: userData.username,
                 password: userData.password,
                 email: userData.email,
             });
             setIsSaving(false);
-            document.cookie = "username=" + userData.username;
+            document.cookie = "token=" + unique;
             navigate("/");
         }
     };

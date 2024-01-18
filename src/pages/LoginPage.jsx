@@ -33,17 +33,17 @@ export default function LoginPage() {
         }));
     };
 
-    const loginHandler = (e) => {
+    const loginHandler = (flag, id) => {
         if (flag == 1) {
             show("Login Success");
-            document.cookie = "username=" + userData.username;
+            document.cookie = "token=" + id;
             navigate("/");
         }
     };
 
     const handleSubmit = async (e) => {
-        if (userData.username == "") {
-            showError("Enter a username");
+        if (userData.email == "") {
+            showError("Enter an Email");
         } else if (userData.password == "") {
             showError("Enter a password");
         } else {
@@ -51,18 +51,18 @@ export default function LoginPage() {
             const allusers = await getDocs(collection(db, "users"));
             allusers.forEach((element) => {
                 if (
-                    element.data().email == userData.email.trim() &&
-                    element.data().password == userData.password.trim()
+                    element.data().email.trim() == userData.email.trim() &&
+                    element.data().password.trim() == userData.password.trim()
                 ) {
                     flag = 1;
-                    loginHandler();
+                    loginHandler(flag, element.data().id);
                 }
             });
-            if (flag != 1) {
-                showError("Invalid username or password");
-            }
-            setIsSaving(false);
         }
+        if (flag != 1) {
+            showError("Invalid username or password");
+        }
+        setIsSaving(false);
     };
 
     const firebaseConfig = {
@@ -108,7 +108,7 @@ export default function LoginPage() {
                     className="bg-[#20E1C4] hover:shadow-[2px_7px_2px_0px_rgba(0,0,0,0.3)] w-[30%] px-2 py-2 rounded-lg mt-8"
                     onClick={handleSubmit}
                 >
-                    Sign Up
+                    Login
                 </button>
             </div>
         </div>

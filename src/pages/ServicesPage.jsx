@@ -3,9 +3,10 @@ import NavBar from "../components/NavBar";
 import "../App.css";
 
 export default function ServicesPage() {
+    const cookie = document.cookie.split(";") || ["", ""];
     return (
         <div id="home" className="bg-[url('/homepage.png')] bg-top  w-full">
-            <NavBar />
+            <NavBar token={cookie != "" ? true : false} />
             <p className="bg-gradient-to-r p-5 rounded-xl shadow-xl shadow-[#00ffd982] from-[#00ffd982] to-[#004cffdc] mt-[100px] w-[70%] m-auto mb-10">
                 <ul>
                     <li className="font-bold text-lg my-4">

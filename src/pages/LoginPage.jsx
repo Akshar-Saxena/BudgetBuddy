@@ -66,7 +66,7 @@ export default function LoginPage() {
     };
 
     const firebaseConfig = {
-        apiKey: "AIzaSyD_grnszlOXBbJi9xZ-j-BLyyDUsmEfeEA",
+        apiKey: import.meta.env.VITE_KEY,
         authDomain: "budget-buddy-fcd2c.firebaseapp.com",
         projectId: "budget-buddy-fcd2c",
         storageBucket: "budget-buddy-fcd2c.appspot.com",
@@ -79,15 +79,19 @@ export default function LoginPage() {
     const db = getFirestore(app);
 
     return (
-        <div className="flex justify-evenly items-center w-full h-[100vh] bg-[url('/bg.png')] bg-center">
+        <div className="flex justify-evenly items-center w-full h-[100vh] bg-[url('/bg.png')] bg-center max-[800px]:flex-col">
             <ToastContainer />
             {isSaving && (
                 <div className="absolute flex justify-center items-center t-0 l-0 bg-gray-300 h-[100vh] w-full bg-opacity-60">
                     <DotLoader size={100} color="#004BFF" />
                 </div>
             )}
-            <img className="w-[35%]" src="/account.png" alt="" />
-            <div className="flex flex-col mt-[130px] ml-[110px] w-[25%] justify-center items-center">
+            <img
+                className="w-[35%] mr-[200px] max-[800px]:mr-0 max-[492px]:w-[50%] max-[350px]:w-[70%]"
+                src="/account.png"
+                alt=""
+            />
+            <div className="flex flex-col mt-[130px] w-[25%] justify-center items-center max-[800px]:w-[80%] max-[800px]:mt-0 max-[800px]:ml-0">
                 <input
                     className="shadow-[2px_7px_2px_0px_rgba(0,0,0,0.3)] w-full rounded-lg px-4 py-3 my-2"
                     type="email"
